@@ -1,3 +1,9 @@
+# WIP
+
+`ngrc.js` code is done, but the package and example need a final pass of polish.
+
+
+
 # ngrc
 
 
