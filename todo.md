@@ -1,4 +1,0 @@
-- add angular as npm dep
-- get example up and running with webpack
-- finish ngrc code
-- build ngrc code with rollup?
