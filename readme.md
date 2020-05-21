@@ -88,7 +88,7 @@ angular.module('myApp')
     }])
 ```
 
-Using the component in your angular template:
+Using the component in your angular templates:
 ```html
 <!-- SNIP -->
 <body ng-app="myApp">
@@ -118,6 +118,13 @@ angular.module('myApp')
     // SNIP
 ```
 
+Using the component in your angular templates:
+```html
+<!-- SNIP -->
+<my-component p-count="count"><my-component>
+<!-- SNIP -->
+```
+
 
 ## Using a react component (with a custom prop attribute prefix) in an angular template, while passing in a scope variable as a prop
 
@@ -129,7 +136,7 @@ angular.module('myApp')
     // SNIP
 ```
 
-Using the component with a custom prefix in your angular template:
+Using the component with a custom prefix in your angular templates:
 ```html
 <!-- SNIP -->
 <my-component custom-prefix-count="count"><my-component>
