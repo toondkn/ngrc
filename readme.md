@@ -53,7 +53,7 @@ This prefix can be customized, but not disabled.
 
 # In action
 
-All example code assume ES module compatible build tools and `npm` are used for your project.
+All example code assumes ES module compatible build tools and `npm` are used for your project.
 
 `ngrc` also works just fine if angular is included with a script tag, but would make for some long-winded examples.
 
