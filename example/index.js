@@ -1,31 +1,16 @@
-import ngrc from '../ngrc.js'
-import React from 'react'
 import angular from 'angular'
+import ngrc from '../ngrc.js'
+import HelloReact from './HelloReact'
 
-// react component
-function HelloReact({
-    count,
-    amount,
-    handleIncrement,
-    ...props
-}) {
-    return (
-        <div style={{ backgroundColor: 'dodger' }} {...props}>
-            <h1>Hello from react!</h1>
-            <p>count: {count}</p>
-            <button
-                onClick={() => { handleIncrement(count + amount) }}
-            >&plus; {amount}</button>
-        </div>
-    )
-}
-
-// angularjs code
+// angularjs app
 angular.module('helloAngular', [])
-    .component("helloReact", ngrc(HelloReact, 'rp'))
+    .component('helloReact', ngrc(HelloReact))
     .controller('helloCtrl', ['$scope', ($scope) => {
         $scope.count = 0;
-        $scope.amount = 3;
+        $scope.amount = 1;
+        $scope.increaseAmount = () => {
+            $scope.amount++
+        }
         $scope.setCount = (newCount) => {
             $scope.count = newCount
         }

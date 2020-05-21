@@ -1,12 +1,20 @@
-<html>
+<html ng-app="helloAngular">
 
 <head>
     <title>NGRC example</title>
 </head>
 
-<body ng-app="helloAngular">
-    <div ng-controller="helloCtrl">
-        <hello-react></hello-react>
+<body ng-controller="helloCtrl">
+    <div style=" padding: 16px; background-color: firebrick; color: white;">
+        <h1>Hello from angularjs!</h1>
+        <p>count: {{count}}</p>
+        <button ng-click="increaseAmount()">amount++</button>
+        <hello-react
+            style="display: block; margin-top: 16px;"
+            p-count="count"
+            p-amount="amount"
+            p-handle-increment="setCount"
+        ></hello-react>
     </div>
 </body>
 
