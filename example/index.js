@@ -2,7 +2,7 @@ import angular from 'angular'
 import ngrc from '../ngrc.js'
 import HelloReact from './HelloReact'
 
-// angularjs app
+// angular app
 angular.module('helloAngular', [])
     .component('helloReact', ngrc(HelloReact))
     .controller('helloCtrl', ['$scope', ($scope) => {

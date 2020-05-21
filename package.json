@@ -1,14 +1,14 @@
 {
   "name": "ngrc",
   "version": "1.0.0",
-  "description": "Generate angularjs components from react components",
+  "description": "Generate angular components from react components",
   "main": "ngrc.js",
   "scripts": {
     "example:build": "webpack --config ./example/webpack.config.js",
     "example:dev": "webpack-dev-server --config ./example/webpack.config.js"
   },
   "keywords": [
-    "angularjs",
+    "angular",
     "ng",
     "react",
     "component",

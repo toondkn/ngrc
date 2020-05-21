@@ -35,21 +35,21 @@ function ngrc(Component, bindPrefix = 'p') {
         binds = Object.keys(Component.propTypes)
     }
 
-    // create angularjs bindings object
+    // create angular bindings object
     const bindings = {}
     for (const bind of (binds || [])) {
         // we keep it simple: one-way binding only! why?:
-        // - disallows use of boilerplatey syntax due to angularjs func arg mapping obj
+        // - disallows use of boilerplatey syntax due to angular func arg mapping obj
         // - makes te implementation of this lib way faster/cleaner
         // - '<' works for regular variables as well as functions
         bindings[addCcPrefix(bindPrefix, bind)] = '<'
     }
 
-    // return angularjs controller definition object with a dash of react interop
+    // return angular controller definition object with a dash of react interop
     return {
         bindings,
         controller: ['$element', '$rootScope', function ($element, $rootScope) {
-            // NOTE: angularjs passes in the component scope into `this`
+            // NOTE: angular passes in the component scope into `this`
             // it's the reason why the controller function is a regular anon func
             // instead of an arrow function
             // it's also the reason why we _have_ to define the below function in this scope,
@@ -60,15 +60,15 @@ function ngrc(Component, bindPrefix = 'p') {
             function wrapWithApply(func) {
                 return (...args) => {
                     func(...args)
-                    // trigger an angularjs "re-render"
+                    // trigger an angular "re-render"
                     $rootScope.$apply()
                 }
             }
 
-            // get root component of angularjs component
+            // get root component of angular component
             const mountEl = $element[0]
 
-            // map angularjs <-> react lifecycles
+            // map angular <-> react lifecycles
             // $onChanges is called before $onInit..., which is great for us:
             // it means we only have to define $onChanges!
             this.$onChanges = () => {
@@ -90,7 +90,7 @@ function ngrc(Component, bindPrefix = 'p') {
     }
 }
 
-// massage angularjs scope object into a props object:
+// massage angular scope object into a props object:
 // - only include bound scope properties
 // - wrap functions with passed in wrapFunc
 function scopeToProps(scope, bindPrefix, bindings, wrapFunc) {
