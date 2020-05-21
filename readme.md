@@ -17,7 +17,7 @@ Simple, very lightweight, to the point.
 - internally, only `'<'` bindings are used on the angular side, which means no support for mapped function args (you won't miss out on anything though!)
 
 
-## Use cases?
+## Use cases
 
 - slowly converting a legacy angular app to react from the inside out
 - ...?
@@ -32,16 +32,9 @@ Bring your own tooling and libraries:
 A transpiled and minified library is possible, but I see no use for it. It there is demand, it will be added.
 
 
-## The name?
-
-- `ngrc` = `ng` + `rc`
-- `ng` = angular
-- `rc` = react component
-
-
 # How does it work?
 
-This package provides a function to generate an angular component definition, based on a react component you pass into it.
+This package provides a function to generate an angular component definition based on a react component you pass into it.
 
 It will infer the angular bindings from your component's `.propTypes` definition, if available.
 
@@ -54,7 +47,7 @@ This prefix can be customized, but not disabled.
 
 # In action
 
-All instructions assume ES module compatible build tools and `npm` are used for your project.
+All example code assume ES module compatible build tools and `npm` are used for your project.
 
 `ngrc` also works just fine if angular is included with a script tag, but would make for some long-winded examples.
 
@@ -74,7 +67,7 @@ import react from 'react'
 import PropTypes from 'prop-types'
 import angular from 'angular'
 
-// define component
+// define a react component
 function MyComponent(props) {
     return (
         <div>{props.count}</div>
