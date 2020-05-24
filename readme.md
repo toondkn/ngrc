@@ -55,7 +55,7 @@ This prefix can be customized, but not disabled.
 
 All example code assumes ES module compatible build tools and `npm` are used for your project.
 
-`ngrc` also works just fine if angular is included with a script tag, but would make for some long-winded examples.
+`ngrc` also works just fine if angular is included with a script tag.
 
 
 ## First up, installing...
@@ -116,7 +116,7 @@ function MyComponent(props) {
     )
 }
 // if you don't have/want prop-types,
-// or limit the props you expose to a subset if the propTypes
+// or limit the props that get exposed to a subset of the propTypes
 MyComponent.ngrcBinds = ['count']
 
 angular.module('myApp')
