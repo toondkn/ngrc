@@ -20,6 +20,7 @@ function HelloReact({
                 count: {count}
             </p>
             <button
+                // arbitrary example, don't actually do this
                 onClick={() => { handleIncrement(count + amount) }}
             >
                 + {amount}
