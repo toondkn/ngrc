@@ -7,6 +7,9 @@
     "type": "git",
     "url": "https://github.com/Fluxarray/ngrc"
   },
+  "publishConfig": { 
+    "registry": "https://npm.pkg.github.com/"
+  },
   "scripts": {
     "example:build": "webpack --config ./example/webpack.config.js",
     "example:dev": "webpack-dev-server --config ./example/webpack.config.js"
