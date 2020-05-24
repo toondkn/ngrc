@@ -3,6 +3,10 @@
   "version": "1.0.1",
   "description": "Generate angular components from react components",
   "browser": "./ngrc.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Fluxarray/ngrc"
+  },
   "scripts": {
     "example:build": "webpack --config ./example/webpack.config.js",
     "example:dev": "webpack-dev-server --config ./example/webpack.config.js"
