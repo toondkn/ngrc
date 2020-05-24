@@ -38,6 +38,7 @@
     "webpack-dev-server": "^3.11.0"
   },
   "files": [
-    "./ngrc.js"
+    "ngrc.js",
+    "license"
   ]
 }
