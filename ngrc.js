@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, unmountComponentAtNode } from 'react-dom'
 
-// functions to add or remove a str prefix (handles it camelCased)
+// naive functions to add or remove a str prefix (handles it camelCased)
 function addCcPrefix(prefix, str) {
     return prefix + str.charAt(0).toUpperCase() + str.slice(1)
 }
@@ -39,9 +39,10 @@ function ngrc(Component, bindPrefix = 'p') {
     const bindings = {}
     for (const bind of (binds || [])) {
         // we keep it simple: one-way binding only! why?:
-        // - disallows use of boilerplatey syntax due to angular func arg mapping obj
-        // - makes te implementation of this lib way faster/cleaner
+        // - disallows use of boilerplatey syntax due to angular func arg mapping obj (with '&' binding)
+        // - makes this code way simpler
         // - '<' works for regular variables as well as functions
+        // - behaves the most like actual react props
         bindings[addCcPrefix(bindPrefix, bind)] = '<'
     }
 
@@ -53,7 +54,7 @@ function ngrc(Component, bindPrefix = 'p') {
             // it's the reason why the controller function is a regular anon func
             // instead of an arrow function
             // it's also the reason why we _have_ to define the below function in this scope,
-            // because it uses `this` internally!...
+            // because `$rootScope.$apply()` uses `this` internally!...
 
             // a function that returns a function,
             // with a rootScope.apply(), which wraps the passed in function
@@ -64,16 +65,15 @@ function ngrc(Component, bindPrefix = 'p') {
                     $rootScope.$apply()
                 }
             }
-
+            
             // get root component of angular component
             const mountEl = $element[0]
 
             // map angular <-> react lifecycles
             // $onChanges is called before $onInit..., which is great for us:
-            // it means we only have to define $onChanges!
+            // it means we only have to define $onChanges and not $onInit to cover all bases!
             this.$onChanges = () => {
-                // react will just re-render the component if it is already initialized,
-                // perfect for our use case!
+                // react will just re-render the component if it is already mounted at the mountEl!
                 render(
                     React.createElement(
                         Component,
