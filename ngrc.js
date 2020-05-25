@@ -70,8 +70,16 @@ function ngrc(Component, bindPrefix = 'p') {
             const mountEl = $element[0]
 
             // map angular <-> react lifecycles
-            // $onChanges is called before $onInit..., which is great for us:
-            // it means we only have to define $onChanges and not $onInit to cover all bases!
+            this.$onInit = () => {
+                // react will just re-render the component if it is already mounted at the mountEl!
+                render(
+                    React.createElement(
+                        Component,
+                        scopeToProps(this, bindPrefix, bindings, wrapWithApply),
+                    ),
+                    mountEl
+                )
+            }
             this.$onChanges = () => {
                 // react will just re-render the component if it is already mounted at the mountEl!
                 render(
