@@ -7,7 +7,7 @@
 
 It enables you to build anything with react components _inside_ an angular app:
 - Generate an angular component from a react component with one trivial function call
-- Use the generated components in you angular templates
+- Use the generated components in your angular templates
 - Pass variables from inside your templates (~=$scope) to react components
 - Pass callbacks from your angular controllers and call them from react components
 - ...
