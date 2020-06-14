@@ -1,6 +1,6 @@
 {
   "name": "ngrc",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Generate angular components from react components",
   "browser": "./ngrc.js",
   "repository": {
