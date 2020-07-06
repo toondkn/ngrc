@@ -60,9 +60,10 @@ function ngrc(Component, bindPrefix = 'p') {
             // with a rootScope.apply(), which wraps the passed in function
             function wrapWithApply(func) {
                 return (...args) => {
-                    func(...args)
+                    const result = func(...args)
                     // trigger an angular "re-render"
                     $rootScope.$apply()
+                    return result
                 }
             }
             
