@@ -62,11 +62,18 @@ function ngrc(Component, bindPrefix = 'p') {
                 return (...args) => {
                     const result = func(...args)
                     // trigger an angular "re-render"
-                    $rootScope.$apply()
+                    try {
+                        $rootScope.$apply()
+                    }
+                    catch (error) {
+                        if (window && window.console) {
+                            console.warn(`ngrc caught angular digest error: ${error}`)
+                        }
+                    }
                     return result
                 }
             }
-            
+
             // get root component of angular component
             const mountEl = $element[0]
 
