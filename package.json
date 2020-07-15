@@ -1,6 +1,6 @@
 {
   "name": "ngrc",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Generate angular components from react components",
   "browser": "./ngrc.js",
   "repository": {
@@ -28,7 +28,7 @@
     "react-dom": ">=15.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.10.4",
+    "@babel/core": "^7.10.5",
     "@babel/preset-env": "^7.10.4",
     "@babel/preset-react": "^7.10.4",
     "angular": "^1.8.0",

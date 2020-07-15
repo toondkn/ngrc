@@ -61,9 +61,12 @@ function ngrc(Component, bindPrefix = 'p') {
             function wrapWithApply(func) {
                 return (...args) => {
                     const result = func(...args)
-                    // trigger an angular "re-render"
+                    // trigger an angular "re-render", but only when it's safe!
                     try {
-                        $rootScope.$apply()
+                        const phase = $rootScope.$$phase
+                        if (phase !== '$apply' && phase !== '$digest') {
+                            $rootScope.$apply()
+                        }
                     }
                     catch (error) {
                         if (window && window.console) {
