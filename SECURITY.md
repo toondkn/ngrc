@@ -8,4 +8,4 @@
 
 ## Reporting a Vulnerability
 
-Mailing me at toonderkoningen@gmail.com is a sure way to get a quick reply.
+Send a mail to toonderkoningen@gmail.com with details of the vulnerability.

@@ -1,6 +1,6 @@
 {
   "name": "ngrc",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Generate angular components from react components",
   "browser": "./ngrc.js",
   "repository": {
@@ -17,9 +17,7 @@
     "ng",
     "react",
     "reactjs",
-    "component",
-    "generate",
-    "generator"
+    "component"
   ],
   "author": "Toon Derkoningen",
   "license": "MIT",
