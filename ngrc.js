@@ -1,49 +1,49 @@
-import React from 'react'
-import { createRoot, unmountComponentAtNode } from 'react-dom'
+import React from 'react';
+import { createRoot } from 'react-dom/client';
 
 // naive functions to add or remove a str prefix (handles it camelCased)
 function addCcPrefix(prefix, str) {
-    return prefix + str.charAt(0).toUpperCase() + str.slice(1)
+    return prefix + str.charAt(0).toUpperCase() + str.slice(1);
 }
 function removeCcPrefix(prefix, str) {
-    const withoutPrefix = str.slice(prefix.length)
-    return withoutPrefix.charAt(0).toLowerCase() + withoutPrefix.slice(1)
+    const withoutPrefix = str.slice(prefix.length);
+    return withoutPrefix.charAt(0).toLowerCase() + withoutPrefix.slice(1);
 }
 
 function ngrc(Component, bindPrefix = 'p') {
     // return early if Component argument is unsatisfactory,
     if (!Component) {
-        console.warn('ngrc: Did you forget to pass a react component?')
-        return {}
+        console.warn('ngrc: Did you forget to pass a react component?');
+        return {};
     }
     if (Component.ngrcBinds && !Array.isArray(Component.ngrcBinds)) {
-        console.warn('ngrc: [Component].ngrcBinds must be an array!')
-        return {}
+        console.warn('ngrc: [Component].ngrcBinds must be an array!');
+        return {};
     }
     if (!bindPrefix) {
-        console.warn('ngrc: Did you pass in a bind-prefix (nrgc() 2nd arg) that isn\'t a string of at least length 1?')
-        return {}
+        console.warn('ngrc: Did you pass in a bind-prefix (nrgc() 2nd arg) that isn\'t a string of at least length 1?');
+        return {};
     }
 
-    let binds
+    let binds;
     // set binds from [Component].ngrcBinds,
     if (Array.isArray(Component.ngrcBinds)) {
-        binds = Component.ngrcBinds
+        binds = Component.ngrcBinds;
     }
     // or infer them from Component's propTypes definition
     if (!binds && typeof Component.propTypes === 'object') {
-        binds = Object.keys(Component.propTypes)
+        binds = Object.keys(Component.propTypes);
     }
 
     // create angular bindings object
-    const bindings = {}
+    const bindings = {};
     for (const bind of (binds || [])) {
         // we keep it simple: one-way binding only! why?:
         // - disallows use of boilerplatey syntax due to angular func arg mapping obj (with '&' binding)
         // - makes this code way simpler
         // - '<' works for regular variables as well as functions
         // - behaves the most like actual react props
-        bindings[addCcPrefix(bindPrefix, bind)] = '<'
+        bindings[addCcPrefix(bindPrefix, bind)] = '<';
     }
 
     // return angular controller definition object with a dash of react interop
@@ -60,73 +60,71 @@ function ngrc(Component, bindPrefix = 'p') {
             // with a rootScope.apply(), which wraps the passed in function
             function wrapWithApply(func) {
                 return (...args) => {
-                    const result = func(...args)
+                    const result = func(...args);
                     // trigger an angular "re-render", but only when it's safe!
                     try {
-                        const phase = $rootScope.$$phase
+                        const phase = $rootScope.$$phase;
                         if (phase !== '$apply' && phase !== '$digest') {
-                            $rootScope.$apply()
+                            $rootScope.$apply();
                         }
                     }
                     catch (error) {
                         if (window && window.console) {
-                            console.warn(`ngrc caught angular digest error: ${error}`)
+                            console.warn(`ngrc caught angular digest error: ${error}`);
                         }
                     }
-                    return result
+                    return result;
                 }
             }
 
-            // get root component of angular component
-            const mountEl = $element[0]
+            const mountEl = $element[0];
+
+            const reactRoot = createRoot(mountEl);
 
             // map angular <-> react lifecycles
             this.$onInit = () => {
+                const reactEl = React.createElement(
+                    Component,
+                    scopeToProps(this, bindPrefix, bindings, wrapWithApply),
+                );
                 // react will just re-render the component if it is already mounted at the mountEl!
-                createRoot(
-                    React.createElement(
-                        Component,
-                        scopeToProps(this, bindPrefix, bindings, wrapWithApply),
-                    ),
-                    mountEl
-                )
-            }
+                reactRoot.render(reactEl);
+            };
             this.$onChanges = () => {
+                const reactEl = React.createElement(
+                    Component,
+                    scopeToProps(this, bindPrefix, bindings, wrapWithApply),
+                );
                 // react will just re-render the component if it is already mounted at the mountEl!
-                createRoot(
-                    React.createElement(
-                        Component,
-                        scopeToProps(this, bindPrefix, bindings, wrapWithApply),
-                    ),
-                    mountEl
-                )
-            }
+                reactRoot.render(reactEl);
+            };
             this.$onDestroy = () => {
                 // clean up react component
-                unmountComponentAtNode(mountEl)
-            }
+                reactRoot.unmount();
+            };
         }],
-    }
+    };
 }
 
 // massage angular scope object into a props object:
 // - only include bound scope properties
 // - wrap functions with passed in wrapFunc
 function scopeToProps(scope, bindPrefix, bindings, wrapFunc) {
-    const props = {}
+    const props = {};
     for (const [key, value] of Object.entries(scope)) {
         if (bindings[key]) {
-            const propName = removeCcPrefix(bindPrefix, key)
+            const propName = removeCcPrefix(bindPrefix, key);
             if (typeof value === 'function') {
-                props[propName] = wrapFunc(value)
+                props[propName] = wrapFunc(value);
             }
             else {
-                props[propName] = value
+                props[propName] = value;
             }
         }
     }
-    return props
+    return props;
 }
 
 
-export default ngrc
+export default ngrc;
+export { ngrc };
