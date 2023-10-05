@@ -3,13 +3,13 @@
 
 ## What is `ngrc`?
 
-`ngrc` is an ES2018 module to generate angular (1.5+) component definitions from react components.
+`ngrc` is an ES2018 module to generate angularjs (1.5+) component definitions from react components.
 
-It enables you to build anything with react components _inside_ an angular app:
-- Generate an angular component from a react component with one trivial function call
-- Use the generated components in your angular templates
+It enables you to build anything with react components _inside_ an angularjs app:
+- Generate an angularjs component from a react component with one trivial function call
+- Use the generated components in your angularjs templates
 - Pass variables from inside your templates (~=$scope) to react components
-- Pass callbacks from your angular controllers and call them from react components
+- Pass callbacks from your angularjs controllers and call them from react components
 - ...
 
 Simple, very lightweight, to the point.
@@ -23,9 +23,9 @@ Liberal use of comments in `./ngrc.js` makes up for the 0% code test coverage. ð
 
 ## Use cases
 
-- Enabling devs with a react background to contribute to an existing angular app at their full potential
-- Using sweet new react components from npm in your angular app
-- Slowly converting a legacy angular app to react from the inside out
+- Enabling devs with a react background to contribute to an existing angularjs app at their full potential
+- Using sweet new react components from npm in your angularjs app
+- Slowly converting a legacy angularjs app to react from the inside out
 - ...?
 
 
@@ -33,17 +33,17 @@ Liberal use of comments in `./ngrc.js` makes up for the 0% code test coverage. ð
 
 - `angular` 1.5+, <2
 - `react` function/class components
-- Internally, only `'<'` bindings are used for angular component generation, which means no support for mapped function args like you would get with `'&'` bindings.
+- Internally, only `'<'` bindings are used for angularjs component generation, which means no support for mapped function args like you would get with `'&'` bindings.
 
-Limiting to `'<'` bindings has a nice side-effect: it forces a clean separation between angular and react concepts. Allowing `'&'` could result in angular's function argument object mapping to seep into your react code, making it less portable. With only `'<'` bindings, your react components are **almost guaranteed to be fully portable without refactoring**. This limitation only closes a door to potential bad code, creative coders will always find another.
+Limiting to `'<'` bindings has a nice side-effect: it forces a clean separation between angularjs and react concepts. Allowing `'&'` could result in angular's function argument object mapping to seep into your react code, making it less portable. With only `'<'` bindings, your react components are **almost guaranteed to be fully portable without refactoring**. This limitation only closes a door to potential bad code, creative coders will always find another.
 
 
 
 # How does it work?
 
-This package provides a function to generate an angular component definition based on a react component you pass into it.
+This package provides a function to generate an angularjs component definition based on a react component you pass into it.
 
-It will infer the angular bindings from your component's `.propTypes` definition, if available.
+It will infer the angularjs bindings from your component's `.propTypes` definition, if available.
 
 If you are not using the `prop-types` package, or wish to only expose a subset of props as bindings, you can define a `.ngrcBinds` property on your react component. It must be an array of strings, corresponding to the names of the props you wish to expose. You can assign `.ngrcBinds` from outside your component code to increase your component's portability.
 
@@ -64,13 +64,13 @@ npm i ngrc
 ```
 
 
-## Using a react component in an angular template, while passing in a scope variable as a prop
+## Using a react component in an angularjs template, while passing in a scope variable as a prop
 
 ```js
 import ngrc from 'ngrc'
 import react from 'react'
 import PropTypes from 'prop-types'
-import angular from 'angular'
+import angularjs from 'angular'
 
 // define a react component
 function MyComponent(props) {
@@ -82,10 +82,10 @@ MyComponent.propTypes = {
     value: PropTypes.number,
 }
 
-// your angular app
+// your angularjs app
 angular.module('myApp')
-    // --- register your react component with angular ---
-    // camelCase the component name, angular expects it this way
+    // --- register your react component with angularjs ---
+    // camelCase the component name, angularjs expects it this way
     .component('myComponent', ngrc(MyComponent))
     // --- this is all you need ---
     .controller('myCtrl', ['$scope', function($scope) {
@@ -93,7 +93,7 @@ angular.module('myApp')
     }])
 ```
 
-Using the component in your angular templates:
+Using the component in your angularjs templates:
 ```html
 <!-- SNIP -->
 <body ng-app="myApp">
@@ -105,7 +105,7 @@ Using the component in your angular templates:
 ```
 
 
-## Using a react component (no `.propTypes`) in an angular template, while passing in a scope variable as a prop
+## Using a react component (no `.propTypes`) in an angularjs template, while passing in a scope variable as a prop
 
 ```js
 // SNIP
@@ -123,7 +123,7 @@ angular.module('myApp')
     // SNIP
 ```
 
-Using the component in your angular templates:
+Using the component in your angularjs templates:
 ```html
 <!-- SNIP -->
 <my-component p-value="value"><my-component>
@@ -131,7 +131,7 @@ Using the component in your angular templates:
 ```
 
 
-## Using a react component (with a custom prop attribute prefix) in an angular template, while passing in a scope variable as a prop
+## Using a react component (with a custom prop attribute prefix) in an angularjs template, while passing in a scope variable as a prop
 
 ```js
 //SNIP
@@ -141,7 +141,7 @@ angular.module('myApp')
     // SNIP
 ```
 
-Using the component with a custom prefix in your angular templates:
+Using the component with a custom prefix in your angularjs templates:
 ```html
 <!-- SNIP -->
 <my-component custom-prefix-value="value"><my-component>
@@ -149,6 +149,6 @@ Using the component with a custom prefix in your angular templates:
 ```
 
 
-## Basic 2-way dataflow from angular â‡„ react
+## Basic 2-way dataflow from angularjs â‡„ react
 
 See the `./example` folder of the repository.
