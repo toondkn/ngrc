@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, unmountComponentAtNode } from 'react-dom'
+import { createRoot, unmountComponentAtNode } from 'react-dom'
 
 // naive functions to add or remove a str prefix (handles it camelCased)
 function addCcPrefix(prefix, str) {
@@ -83,7 +83,7 @@ function ngrc(Component, bindPrefix = 'p') {
             // map angular <-> react lifecycles
             this.$onInit = () => {
                 // react will just re-render the component if it is already mounted at the mountEl!
-                render(
+                createRoot(
                     React.createElement(
                         Component,
                         scopeToProps(this, bindPrefix, bindings, wrapWithApply),
@@ -93,7 +93,7 @@ function ngrc(Component, bindPrefix = 'p') {
             }
             this.$onChanges = () => {
                 // react will just re-render the component if it is already mounted at the mountEl!
-                render(
+                createRoot(
                     React.createElement(
                         Component,
                         scopeToProps(this, bindPrefix, bindings, wrapWithApply),

@@ -1,46 +1,26 @@
 {
   "name": "ngrc",
-  "version": "1.0.9",
-  "description": "Generate angular components from react components",
-  "browser": "./ngrc.js",
+  "version": "2.0.0",
+  "description": "Generate angularjs components from react components",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Fluxarray/ngrc"
-  },
-  "scripts": {
-    "example:build": "webpack --config ./example/webpack.config.js",
-    "example:dev": "webpack-dev-server --config ./example/webpack.config.js"
+    "url": "https://github.com/toondkn/ngrc"
   },
   "keywords": [
-    "angular",
     "angularjs",
     "ng",
     "react",
-    "reactjs",
     "component"
   ],
   "author": "Toon Derkoningen",
   "license": "MIT",
-  "peerDependencies": {
-    "react": ">=15.0.0",
-    "react-dom": ">=15.0.0"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.10.5",
-    "@babel/preset-env": "^7.10.4",
-    "@babel/preset-react": "^7.10.4",
-    "angular": "^1.8.0",
-    "babel-loader": "^8.1.0",
-    "html-webpack-plugin": "^4.3.0",
-    "prop-types": "^15.7.2",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.0"
-  },
   "files": [
     "ngrc.js",
     "license"
-  ]
+  ],
+  "main": "./ngrc.js",
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  }
 }
